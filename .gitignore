@@ -1,0 +1,6 @@
+.env
+JD.txt
+__pycache__
+projectenv
+migrations
+references.txt
