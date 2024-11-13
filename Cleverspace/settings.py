@@ -22,10 +22,12 @@ DJANGO_APPS = [
 EXTERNAL_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
+    "corsheaders",
 ]
 
 USER_APPS=[
-    'auth_handler'
+    'auth_handler',
+    'tasks',
 ]
 
 INSTALLED_APPS = DJANGO_APPS+USER_APPS+EXTERNAL_APPS
@@ -42,8 +44,8 @@ REST_FRAMEWORK = {
 
 # Simple JWT settings
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=5),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
     'ALGORITHM': 'HS256',
@@ -54,9 +56,21 @@ SIMPLE_JWT = {
     'JWK_URL': None,
 }
 
+# CORS
+CORS_ALLOWED_ORIGINS = ['http://127.0.0.1:5500']
+CORS_ALLOW_HEADERS = [
+    'content-type',
+    'authorization',
+    'accept',
+    'origin',
+    'x-requested-with',
+]
+
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -139,10 +153,12 @@ STATIC_URL = 'static/'
 # Custom user model
 AUTH_USER_MODEL = 'auth_handler.MyUser'
 
-# e-mail
+# SMTP
 EMAIL_BACKEND=config('EMAIL_BACKEND')
 EMAIL_HOST=config('EMAIL_HOST')
 EMAIL_PORT=config('EMAIL_PORT', cast=int)
 EMAIL_HOST_USER= config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD= config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS=True
+
+APPEND_SLASH = False
