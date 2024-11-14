@@ -10,7 +10,7 @@ class Task(models.Model):
     start = models.DateTimeField()
     status = models.CharField(
         max_length=20, 
-        choices=[('pending', 'Pending'), ('in_progress', 'In Progress'), ('completed', 'Completed')], 
+        choices=[('pending', 'Pending'), ('completed', 'Completed')], 
         default='pending'
     )
     created_at = models.DateTimeField(auto_now_add=True)
@@ -19,7 +19,7 @@ class Task(models.Model):
 
     class Meta:
         unique_together = ['title','user','start']
-        ordering = ['start']
+        ordering = ['start','title']
     
     def __str__(self):
         return self.title

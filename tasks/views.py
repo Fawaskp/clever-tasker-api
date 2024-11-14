@@ -37,3 +37,12 @@ class TaskMarkCompletedView(APIView):
         task.save()
         serializer = TaskSerializer(task)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class TaskMarkUnCompletedView(APIView):
+    def post(self, request, pk):
+        task = get_object_or_404(Task, pk=pk, user=request.user)
+        task.status = 'pending'
+        task.completed_at = None
+        task.save()
+        serializer = TaskSerializer(task)
+        return Response(serializer.data, status=status.HTTP_200_OK)
