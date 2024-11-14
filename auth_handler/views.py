@@ -32,7 +32,7 @@ class SignupView(views.APIView):
 
             subject = "Welcome to Clever space"
             message = "Thank you for signing up..!"
-            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
+            # send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
 
             return Response({'detail': 'User registered successfully'}, status=status.HTTP_201_CREATED)
 
@@ -103,3 +103,22 @@ class OTPLoginView(views.APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class LogoutView(views.APIView):
+    '''
+    This view handles user logout.
+    '''
+
+    def post(self, request):
+        refresh_token = request.data.get('refresh')
+        if refresh_token is None:
+            return Response({'detail': 'Refresh token is required to logout.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response({'detail': 'Successfully logged out.'}, status=status.HTTP_204_NO_CONTENT)
+        except Exception as e:
+            if 'blacklisted' in str(e):
+                return Response({'detail': 'Already logged out.'}, status=status.HTTP_204_NO_CONTENT)
+            return Response({'detail': 'Invalid refresh token.'}, status=status.HTTP_400_BAD_REQUEST)
