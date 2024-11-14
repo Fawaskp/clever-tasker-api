@@ -4,10 +4,10 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class Task(models.Model):
-    name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     description = models.TextField(null=True, blank=True)
-    is_scheduled = models.BooleanField(default=False)
+    start = models.DateTimeField()
     status = models.CharField(
         max_length=20, 
         choices=[('pending', 'Pending'), ('in_progress', 'In Progress'), ('completed', 'Completed')], 
