@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
+from .token import generate_custom_token
 import random
 
 User = get_user_model()
@@ -50,14 +51,12 @@ class EmailPasswordLoginView(views.APIView):
         password = request.data.get('password')
 
         user = authenticate(email=email, password=password)
-        
         if user is None:
             return Response({'detail': 'Invalid email or password'}, status=status.HTTP_401_UNAUTHORIZED)
 
-        refresh = RefreshToken.for_user(user)
-        access_token = str(refresh.access_token)
+        access_token,refresh_token = generate_custom_token(user)
 
-        return Response({'access': access_token, 'refresh': str(refresh)})
+        return Response({'access': access_token, 'refresh': refresh_token})
 
 
 class SendOTPView(views.APIView):
@@ -94,12 +93,9 @@ class OTPLoginView(views.APIView):
         serializer = OTPVerifySerializer(data=request.data)
 
         if serializer.is_valid():
-            
             user = serializer.validated_data['user']
-            refresh = RefreshToken.for_user(user)
-            access_token = str(refresh.access_token)
-
-            return Response({'access': access_token, 'refresh': str(refresh)})
+            refresh_token, access_token = generate_custom_token(user)
+            return Response({'access': access_token, 'refresh': refresh_token})
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
