@@ -13,14 +13,9 @@ class Task(models.Model):
         choices=[('pending', 'Pending'), ('in_progress', 'In Progress'), ('completed', 'Completed')], 
         default='pending'
     )
-    priority = models.CharField(
-        max_length=10, 
-        choices=[('low', 'Low'), ('medium', 'Medium'), ('high', 'High')], 
-        default='medium'
-    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     completed_at = models.DateTimeField(null=True, blank=True)
     
     def __str__(self):
-        return self.name
+        return self.title
