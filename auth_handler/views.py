@@ -8,10 +8,14 @@ from django.contrib.auth import authenticate
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from rest_framework.views import APIView
 import random
 
-
 User = get_user_model()
+
+class ValidateToken(APIView):
+    def get(self, request):
+        return Response({'message': 'Valid token'})
 
 
 class SignupView(views.APIView):
@@ -98,3 +102,4 @@ class OTPLoginView(views.APIView):
             return Response({'access': access_token, 'refresh': str(refresh)})
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
