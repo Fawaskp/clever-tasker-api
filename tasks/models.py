@@ -16,6 +16,10 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     completed_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        unique_together = ['title','user','start']
+        ordering = ['start']
     
     def __str__(self):
         return self.title
