@@ -1,6 +1,8 @@
 from pathlib import Path
 from decouple import config,Csv
 from datetime import timedelta
+import os
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -153,6 +155,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Static files
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # Custom user model
 AUTH_USER_MODEL = 'auth_handler.MyUser'
