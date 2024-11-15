@@ -56,7 +56,16 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-### 8. **Run the Development Server:**
+
+### 8. **Cache Table Creation:**
+create a cache table using the following command:
+
+```bash
+python manage.py createcachetable
+```
+
+
+### 9. **Run the Development Server:**
 Start the local server to test the application:
 
 ```bash
