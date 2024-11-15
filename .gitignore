@@ -1,7 +1,14 @@
+# Environment variable
 .env
-JD.txt
+
+# Dirs
 __pycache__
 virtualenv
 migrations
-references.txt
+
+# python files
 delay_middleware.py
+
+# txt files
+JD.txt
+references.txt

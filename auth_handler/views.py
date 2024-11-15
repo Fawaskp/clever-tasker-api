@@ -31,7 +31,7 @@ class SignupView(views.APIView):
         if serializer.is_valid():
             user = serializer.save()
 
-            subject = "Welcome to Clever space"
+            subject = "Welcome to CleverTasker"
             message = "Thank you for signing up..!"
             # send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
 
@@ -76,7 +76,7 @@ class SendOTPView(views.APIView):
         otp = random.randint(1000,9999)
         cache.set(f'otp_{email}', otp, timeout=300) #generating an otp with 5 minute(300seconds) expiration time
         print(otp)
-        subject = "Your OTP Code for Clever space"
+        subject = "Your OTP Code for CleverTasker"
         message = f"Your OTP code is: {otp}. It will expire in 5 minutes."
         send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [email])
 
@@ -94,7 +94,7 @@ class OTPLoginView(views.APIView):
 
         if serializer.is_valid():
             user = serializer.validated_data['user']
-            refresh_token, access_token = generate_custom_token(user)
+            access_token, refresh_token = generate_custom_token(user)
             return Response({'access': access_token, 'refresh': refresh_token})
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
