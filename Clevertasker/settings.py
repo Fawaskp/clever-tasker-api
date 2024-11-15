@@ -82,7 +82,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'Cleverspace.urls'
+ROOT_URLCONF = 'Clevertasker.urls'
 
 # html templates
 TEMPLATES = [
@@ -101,7 +101,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Cleverspace.wsgi.application'
+WSGI_APPLICATION = 'Clevertasker.wsgi.application'
 
 # Database
 DATABASES = {
