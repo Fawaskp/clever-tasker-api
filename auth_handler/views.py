@@ -33,7 +33,7 @@ class SignupView(views.APIView):
 
             subject = "Welcome to CleverTasker"
             message = "Thank you for signing up..!"
-            # send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
+            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
 
             return Response({'detail': 'User registered successfully'}, status=status.HTTP_201_CREATED)
 

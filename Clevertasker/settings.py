@@ -2,8 +2,7 @@ from pathlib import Path
 from decouple import config,Csv
 from datetime import timedelta
 import os
-
-
+    
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('DJANGO_SECRET_KEY')
@@ -63,7 +62,7 @@ SIMPLE_JWT = {
 }
 
 # CORS
-CORS_ALLOWED_ORIGINS = ['http://127.0.0.1:5500']
+CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS',cast=Csv())
 CORS_ALLOW_HEADERS = [
     'content-type',
     'authorization',
