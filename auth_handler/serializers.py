@@ -43,7 +43,7 @@ class OTPVerifySerializer(serializers.Serializer):
         cached_otp = str(cache.get(f'otp_{email}'))
         if not cached_otp or cached_otp != otp:
             raise AuthenticationFailed('The OTP is invalid or expired')
-
+        cache.delete(f'otp_{email}')
         user = User.objects.get(email=email)
         attrs['user'] = user
         return attrs
