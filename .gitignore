@@ -5,6 +5,7 @@
 __pycache__
 virtualenv
 migrations
+static
 
 # python files
 delay_middleware.py
